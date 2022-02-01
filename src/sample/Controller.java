@@ -140,15 +140,25 @@ public class Controller {
 
         String nom = txt_nom.getText();
         String nomToTest = nom.toLowerCase();
-        if (nom.isEmpty()) {txt_nom.setStyle("-fx-border-color: red ; -fx-border-width: 2px");}
+        if (nom.isEmpty()) {
+            txt_nom.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+        }
         String prenom = txt_prenom.getText();
-        if (prenom.isEmpty()) {txt_prenom.setStyle("-fx-border-color: red ; -fx-border-width: 2px");}
+        if (prenom.isEmpty()) {
+            txt_prenom.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+        }
         String adresse = txt_adresse.getText();
-        if (adresse.isEmpty()) {txt_adresse.setStyle("-fx-border-color: red ; -fx-border-width: 2px");}
+        if (adresse.isEmpty()) {
+            txt_adresse.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+        }
         String codePostal = txt_codep.getText();
-        if (codePostal.isEmpty()) {txt_codep.setStyle("-fx-border-color: red ; -fx-border-width: 2px");}
+        if (codePostal.isEmpty()) {
+            txt_codep.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+        }
         String ville = txt_ville.getText();
-        if (ville.isEmpty()) {txt_ville.setStyle("-fx-border-color: red ; -fx-border-width: 2px");}
+        if (ville.isEmpty()) {
+            txt_ville.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+        }
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/skiloc", "root", "toor")) {
 
@@ -159,12 +169,13 @@ public class Controller {
                 names.add(result.getString("nom").toLowerCase());
             }
 
-            if (names.contains(nomToTest)){
+            if (names.contains(nomToTest)) {
                 txt_nom.setStyle("-fx-text-fill: red; -fx-border-color: red ; -fx-border-width: 2px");
                 Alert alert2 = new Alert(Alert.AlertType.WARNING);
                 alert2.setTitle("Attention");
                 alert2.setHeaderText("Ce client existe déjà dans la base !");
                 alert2.showAndWait();
+                nom = "";
             }
 
         } catch (SQLException e) {
@@ -173,12 +184,12 @@ public class Controller {
 
         Integer id = 0;
 
-        if (nom.isEmpty() | prenom.isEmpty() | adresse.isEmpty() | codePostal.isEmpty() | ville.isEmpty()){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Attention");
-        alert.setHeaderText("Merci de ne laisser aucun champ client vide.");
-        alert.showAndWait();}
-        else {
+        if (nom.isEmpty() | prenom.isEmpty() | adresse.isEmpty() | codePostal.isEmpty() | ville.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Attention");
+            alert.setHeaderText("Merci de ne laisser aucun champ client vide.");
+            alert.showAndWait();
+        } else {
             try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/skiloc", "root", "toor")) {
 
                 Statement statement = connection.createStatement();
