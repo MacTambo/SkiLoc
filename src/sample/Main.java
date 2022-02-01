@@ -13,6 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Connect connection = new Connect();
+        connection.connect();
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("SkiLoc");
         primaryStage.setScene(new Scene(root));
@@ -21,7 +23,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        Connect connection = new Connect();
-        connection.connect();
     }
 }
