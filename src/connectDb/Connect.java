@@ -18,5 +18,7 @@ public class Connect {
         } catch (ClassNotFoundException | SQLException e) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, e);
         }
+        return null;
+
     }
 }
