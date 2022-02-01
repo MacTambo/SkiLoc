@@ -10,7 +10,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="572.0" text="Bienvenue dans l'interface de gestion SkiLoc" textFill="#5082ab">
@@ -18,11 +17,11 @@
             <Font name="Arial" size="21.0" />
          </font>
       </Label>
-      <TextField layoutX="95.0" layoutY="100.0" />
-      <TextField layoutX="95.0" layoutY="133.0" />
-      <TextField layoutX="95.0" layoutY="169.0" prefHeight="44.0" prefWidth="218.0" />
-      <TextField layoutX="95.0" layoutY="221.0" />
-      <TextField layoutX="95.0" layoutY="256.0" />
+      <TextField fx:id="txt_nom" layoutX="95.0" layoutY="100.0" />
+      <TextField fx:id="txt_prenom" layoutX="95.0" layoutY="133.0" />
+      <TextField fx:id="txt_adresse" layoutX="95.0" layoutY="169.0" prefHeight="44.0" prefWidth="218.0" />
+      <TextField fx:id="txt_codep" layoutX="95.0" layoutY="221.0" />
+      <TextField fx:id="txt_ville" layoutX="95.0" layoutY="256.0" />
       <Text fill="#5082ab" layoutX="14.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveau Client" wrappingWidth="109.13671875">
          <font>
             <Font size="15.0" />
@@ -39,35 +38,35 @@
          </font>
       </Text>
       <Text layoutX="430.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Client :" />
-      <ComboBox layoutX="475.0" layoutY="100.0" prefWidth="150.0" />
-      <ComboBox layoutX="530.0" layoutY="221.0" prefWidth="150.0" />
-      <ComboBox layoutX="530.0" layoutY="141.0" prefWidth="150.0" />
-      <ComboBox layoutX="530.0" layoutY="179.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_client" layoutX="475.0" layoutY="100.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_materiel3" layoutX="530.0" layoutY="221.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_materiel1" layoutX="530.0" layoutY="141.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_materiel2" layoutX="530.0" layoutY="179.0" prefWidth="150.0" />
       <Text layoutX="430.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Matériel à louer :" />
-      <DatePicker layoutX="694.0" layoutY="141.0" promptText="Date début" />
-      <DatePicker layoutX="694.0" layoutY="179.0" promptText="Date début" />
-      <DatePicker layoutX="694.0" layoutY="221.0" promptText="Date début" />
-      <DatePicker layoutX="878.0" layoutY="141.0" promptText="Date retour" />
-      <DatePicker layoutX="878.0" layoutY="179.0" promptText="Date retour" />
-      <DatePicker layoutX="878.0" layoutY="221.0" promptText="Date retour" />
-      <Button layoutX="95.0" layoutY="301.0" mnemonicParsing="false" text="Enregistrer le client" />
-      <Button layoutX="430.0" layoutY="269.0" mnemonicParsing="false" text="Confirmer la location" />
+      <DatePicker fx:id="dp_debut1" layoutX="694.0" layoutY="141.0" promptText="Date début" />
+      <DatePicker fx:id="dp_debut2" layoutX="694.0" layoutY="179.0" promptText="Date début" />
+      <DatePicker fx:id="dp_debut3" layoutX="694.0" layoutY="221.0" promptText="Date début" />
+      <DatePicker fx:id="dp_retour1" layoutX="878.0" layoutY="141.0" promptText="Date retour" />
+      <DatePicker fx:id="dp_retour2" layoutX="878.0" layoutY="179.0" promptText="Date retour" />
+      <DatePicker fx:id="dp_retour3" layoutX="878.0" layoutY="221.0" promptText="Date retour" />
+      <Button fx:id="btn_save_client" layoutX="95.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#saveClient" text="Enregistrer le client" />
+      <Button fx:id="btn_confirm_loc" layoutX="430.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#saveLoc" text="Confirmer la location" />
       <Text fill="#5082ab" layoutX="14.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations en cours" wrappingWidth="174.0">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <TextArea layoutX="14.0" layoutY="396.0" prefHeight="365.0" prefWidth="374.0" />
+      <TextArea fx:id="txt_locations" layoutX="14.0" layoutY="396.0" prefHeight="365.0" prefWidth="374.0" />
       <Text fill="#5082ab" layoutX="430.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enregistrer un retour" wrappingWidth="174.0">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <ComboBox layoutX="487.0" layoutY="396.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_location" layoutX="487.0" layoutY="396.0" prefWidth="150.0" />
       <Text layoutX="430.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location :" />
-      <Button layoutX="487.0" layoutY="480.0" mnemonicParsing="false" text="Article retourné" />
+      <Button fx:id="btn_retour" layoutX="487.0" layoutY="480.0" mnemonicParsing="false" onMouseClicked="#returnArticle" text="Article retourné" />
       <Text layoutX="428.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Article :" />
-      <ComboBox layoutX="487.0" layoutY="439.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_article" layoutX="487.0" layoutY="439.0" prefWidth="150.0" />
       <Text fill="#5082ab" layoutX="423.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Impressions" wrappingWidth="174.0">
          <font>
             <Font size="15.0" />
@@ -77,14 +76,14 @@
       <Text layoutX="614.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facture :" />
       <Text layoutX="781.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rapport date à date :" />
       <Text layoutX="1029.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bilan annuel :" />
-      <ComboBox layoutX="421.0" layoutY="590.0" prefWidth="150.0" />
-      <ComboBox layoutX="614.0" layoutY="590.0" prefWidth="150.0" />
-      <DatePicker layoutX="781.0" layoutY="612.0" />
-      <DatePicker layoutX="781.0" layoutY="665.0" />
-      <Button layoutX="422.0" layoutY="636.0" mnemonicParsing="false" text="Imprimer" />
-      <Button layoutX="614.0" layoutY="636.0" mnemonicParsing="false" text="Imprimer" />
-      <Button layoutX="781.0" layoutY="706.0" mnemonicParsing="false" text="Imprimer" />
-      <Button layoutX="1029.0" layoutY="652.0" mnemonicParsing="false" text="Bilan" />
+      <ComboBox fx:id="cb_fiche" layoutX="421.0" layoutY="590.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_facture" layoutX="614.0" layoutY="590.0" prefWidth="150.0" />
+      <DatePicker fx:id="dp_rapport1" layoutX="781.0" layoutY="612.0" />
+      <DatePicker fx:id="dp_rapport2" layoutX="781.0" layoutY="665.0" />
+      <Button fx:id="btn_fiche_cli" layoutX="422.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#printFiche" text="Imprimer" />
+      <Button fx:id="btn_facture" layoutX="614.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#printFacture" text="Imprimer" />
+      <Button fx:id="btn_rapport" layoutX="781.0" layoutY="706.0" mnemonicParsing="false" onMouseClicked="#printRapport" text="Imprimer" />
+      <Button fx:id="btn_bilan" layoutX="1029.0" layoutY="652.0" mnemonicParsing="false" onMouseClicked="#printBilan" text="Bilan" />
       <Text layoutX="1029.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Imprime un bilan sur une année." wrappingWidth="127.0" />
       <Text layoutX="782.0" layoutY="603.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du :" />
       <Text layoutX="782.0" layoutY="657.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Au :" />
