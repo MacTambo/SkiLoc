@@ -132,13 +132,14 @@ public class Controller {
     void saveClient(MouseEvent event) {
 
 
-        txt_nom.setStyle("-fx-border-color: none ");
+        txt_nom.setStyle("-fx-border-color: none");
         txt_prenom.setStyle("-fx-border-color: none ");
         txt_adresse.setStyle("-fx-border-color: none ");
         txt_codep.setStyle("-fx-border-color: none ");
         txt_ville.setStyle("-fx-border-color: none ");
 
-        String nom = txt_nom.getText().toLowerCase();
+        String nom = txt_nom.getText();
+        String nomToTest = nom.toLowerCase();
         if (nom.isEmpty()) {txt_nom.setStyle("-fx-border-color: red ; -fx-border-width: 2px");}
         String prenom = txt_prenom.getText();
         if (prenom.isEmpty()) {txt_prenom.setStyle("-fx-border-color: red ; -fx-border-width: 2px");}
@@ -158,7 +159,7 @@ public class Controller {
                 names.add(result.getString("nom").toLowerCase());
             }
 
-            if (names.contains(nom)){
+            if (names.contains(nomToTest)){
                 txt_nom.setStyle("-fx-text-fill: red; -fx-border-color: red ; -fx-border-width: 2px");
                 Alert alert2 = new Alert(Alert.AlertType.WARNING);
                 alert2.setTitle("Attention");
@@ -204,6 +205,12 @@ public class Controller {
                 alert2.setHeaderText("Client ajouté à la base de données SkiLoc !");
                 alert2.showAndWait();
                 System.out.println("client ajouté");
+
+                txt_nom.setText("");
+                txt_prenom.setText("");
+                txt_adresse.setText("");
+                txt_codep.setText("");
+                txt_ville.setText("");
 
 
             } catch (SQLException e) {
