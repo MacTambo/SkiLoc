@@ -1,11 +1,12 @@
 package sample;
-//toto//
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 public class Controller {
 
@@ -95,5 +96,40 @@ public class Controller {
 
     @FXML
     private TextField txt_ville;
+
+    @FXML
+    void printBilan(MouseEvent event) {
+
+    }
+
+    @FXML
+    void printFacture(MouseEvent event) {
+
+    }
+
+    @FXML
+    void printFiche(MouseEvent event) {
+
+    }
+
+    @FXML
+    void printRapport(MouseEvent event) {
+
+    }
+
+    @FXML
+    void returnArticle(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveClient(MouseEvent event) {
+
+    }
+
+    @FXML
+    void saveLoc(MouseEvent event) {
+
+    }
 
 }
