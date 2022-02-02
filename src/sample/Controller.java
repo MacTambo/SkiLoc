@@ -1,12 +1,22 @@
 package sample;
 
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
+import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 //84
@@ -101,6 +111,9 @@ public class Controller {
     private TextField txt_ville;
 
     @FXML
+    private Text date_is_null;
+
+    @FXML
     void printBilan(MouseEvent event) {
 
     }
@@ -112,7 +125,27 @@ public class Controller {
 
     @FXML
     void printFiche(MouseEvent event) {
+        try {
+            String path = "C:\\Users\\Arthur\\IdeaProjects\\SkiLoc\\Fiche_Client.pdf";
+            PdfWriter pdfWriter = new PdfWriter(path);
+            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+            Document document = new com.itextpdf.layout.Document(pdfDocument);
+            pdfDocument.setDefaultPageSize(PageSize.A4);
 
+            float col = 280f;
+            float columnWidth[] = {col, col};
+            Table table = new Table(columnWidth);
+
+            table.addCell(new Cell().add(new Paragraph("FICHE CLIENT")));
+            table.addCell(new Cell().add(new Paragraph("SkiLoc")));
+
+            document.add(table);
+
+            document.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -251,25 +284,91 @@ public class Controller {
 
     @FXML
     void saveLoc(MouseEvent event) {
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT id FROM locations");
+            String selectedMateriel1 = "";
+            String selectedDebut1 = "";
+            String selectedRetour1 = "";
+            String selectedMateriel2 = "";
+            String selectedDebut2 = "";
+            String selectedRetour2 = "";
+            String selectedMateriel3 = "";
+            String selectedDebut3 = "";
+            String selectedRetour3 = "";
+            LocalDate compareDateDebut1 = dp_debut1.getValue();
+            LocalDate compareDateRetour1 = dp_retour1.getValue();
+            LocalDate compareDateDebut2 = dp_debut1.getValue();
+            LocalDate compareDateRetour2 = dp_retour1.getValue();
+            LocalDate compareDateDebut3 = dp_debut1.getValue();
+            LocalDate compareDateRetour3 = dp_retour1.getValue();
+            boolean locVerif = false;
+            boolean dispoVerif = true;
 
             String selectedClient = cb_client.getSelectionModel().getSelectedItem().toString();
 
-            String selectedMateriel1 = cb_materiel1.getSelectionModel().getSelectedItem().toString();
-            String selectedDebut1 = dp_debut1.getValue().toString();
-            String selectedRetour1 = dp_retour1.getValue().toString();
+            if (cb_materiel1.getSelectionModel().getSelectedItem() != null) {
+                selectedMateriel1 = cb_materiel1.getSelectionModel().getSelectedItem().toString();
+                selectedDebut1 = dp_debut1.getValue().toString();
+                selectedRetour1 = dp_retour1.getValue().toString();
 
-            String selectedMateriel2 = cb_materiel2.getSelectionModel().getSelectedItem().toString();
-            String selectedDebut2 = dp_debut2.getValue().toString();
-            String selectedRetour2 = dp_retour2.getValue().toString();
+                if (compareDateDebut1.isAfter(compareDateRetour1)) {
+                    dp_debut1.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+                    dp_retour1.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+                    date_is_null.setStyle(("-fx-opacity: 100%"));
 
-            String selectedMateriel3 = cb_materiel3.getSelectionModel().getSelectedItem().toString();
-            String selectedDebut3 = dp_debut3.getValue().toString();
-            String selectedRetour3 = dp_retour3.getValue().toString();
+                }
+            }
+
+            if (cb_materiel2.getSelectionModel().getSelectedItem() != null) {
+                selectedMateriel2 = cb_materiel2.getSelectionModel().getSelectedItem().toString();
+                selectedDebut2 = dp_debut2.getValue().toString();
+                selectedRetour2 = dp_retour2.getValue().toString();
+
+                if (compareDateDebut2.isAfter(compareDateRetour2)) {
+                    dp_debut2.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+                    dp_retour2.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+                    date_is_null.setStyle(("-fx-opacity: 100%"));
+
+                }
+            }
+
+            if (cb_materiel3.getSelectionModel().getSelectedItem() != null) {
+                selectedMateriel3 = cb_materiel3.getSelectionModel().getSelectedItem().toString();
+                selectedDebut3 = dp_debut3.getValue().toString();
+                selectedRetour3 = dp_retour3.getValue().toString();
+
+                if (compareDateDebut3.isAfter(compareDateRetour3)) {
+                    dp_debut3.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+                    dp_retour3.setStyle("-fx-border-color: red ; -fx-border-width: 2px");
+                    date_is_null.setStyle(("-fx-opacity: 100%"));
+
+                }
+            }
+
+            Statement statement2 = connection.createStatement();
+            ResultSet result2 = statement2.executeQuery("SELECT modele FROM locations");
+            ArrayList<String> modeles = new ArrayList<>();
+            while (result2.next()) {
+                modeles.add(result2.getString("modele"));
+            }
+
+            if (modeles.contains(selectedMateriel1) | modeles.contains(selectedMateriel2) | modeles.contains(selectedMateriel3)  ) {
+                if (modeles.contains(selectedMateriel1))
+                {cb_materiel1.setStyle("-fx-text-fill: red; -fx-border-color: red ; -fx-border-width: 2px");}
+                if (modeles.contains(selectedMateriel2))
+                {cb_materiel2.setStyle("-fx-text-fill: red; -fx-border-color: red ; -fx-border-width: 2px");}
+                if (modeles.contains(selectedMateriel3))
+                {cb_materiel3.setStyle("-fx-text-fill: red; -fx-border-color: red ; -fx-border-width: 2px");}
+                Alert alert2 = new Alert(Alert.AlertType.WARNING);
+                alert2.setTitle("Attention");
+                alert2.setHeaderText("Cet article est déjà loué !");
+                alert2.showAndWait();
+                dispoVerif = false;
+
+            }
 
             System.out.println("Enregistrement location ...");
 
@@ -278,48 +377,63 @@ public class Controller {
                 id = result.getInt("id");
             }
             id++;
+            int id2 = id + 1;
+            int id3 = id2 + 1;
 
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
-            pstmt.setInt(1,id);
-            pstmt.setString(2,selectedDebut1);
-            pstmt.setString(3,selectedRetour1);
-            pstmt.setString(4,selectedClient);
-            pstmt.setString(5,selectedMateriel1);
-            pstmt.executeUpdate();
-            System.out.println("Matériel 1 enregistré");
+            if (selectedMateriel1.length() != 0 && compareDateDebut1.isBefore(compareDateRetour1) && dispoVerif) {
 
-            int id2 = id+1;
 
-            PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
-            pstmt2.setInt(1,id2);
-            pstmt2.setString(2,selectedDebut2);
-            pstmt2.setString(3,selectedRetour2);
-            pstmt2.setString(4,selectedClient);
-            pstmt2.setString(5,selectedMateriel2);
-            pstmt2.executeUpdate();
-            System.out.println("Matériel 2 enregistré");
+                PreparedStatement pstmt = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
+                pstmt.setInt(1, id);
+                pstmt.setString(2, selectedDebut1);
+                pstmt.setString(3, selectedRetour1);
+                pstmt.setString(4, selectedClient);
+                pstmt.setString(5, selectedMateriel1);
+                pstmt.executeUpdate();
+                System.out.println("Matériel 1 enregistré");
+                locVerif = true;
+            }
 
-            int id3 = id2+1;
+            if (selectedMateriel2.length() != 0 && compareDateDebut2.isBefore(compareDateRetour2) && dispoVerif) {
 
-            PreparedStatement pstmt3 = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
-            pstmt3.setInt(1,id3);
-            pstmt3.setString(2,selectedDebut3);
-            pstmt3.setString(3,selectedRetour3);
-            pstmt3.setString(4,selectedClient);
-            pstmt3.setString(5,selectedMateriel3);
-            pstmt3.executeUpdate();
-            System.out.println("Matériel 3 enregistré");
 
-            System.out.println("Location enregistrée !");
+                PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
+                pstmt2.setInt(1, id2);
+                pstmt2.setString(2, selectedDebut2);
+                pstmt2.setString(3, selectedRetour2);
+                pstmt2.setString(4, selectedClient);
+                pstmt2.setString(5, selectedMateriel2);
+                pstmt2.executeUpdate();
+                System.out.println("Matériel 2 enregistré");
+                locVerif = true;
+            }
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Confirmation Location");
-            alert.setHeaderText("La location à bien été enregistrée.");
-            alert.showAndWait();
+            if (selectedMateriel3.length() != 0 && compareDateDebut3.isBefore(compareDateRetour3) && dispoVerif) {
 
+
+                PreparedStatement pstmt3 = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
+                pstmt3.setInt(1, id3);
+                pstmt3.setString(2, selectedDebut3);
+                pstmt3.setString(3, selectedRetour3);
+                pstmt3.setString(4, selectedClient);
+                pstmt3.setString(5, selectedMateriel3);
+                pstmt3.executeUpdate();
+                System.out.println("Matériel 3 enregistré");
+                locVerif = true;
+            }
+
+            if (locVerif) {
+                System.out.println("Location enregistrée !");
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Confirmation Location");
+                alert.setHeaderText("La location à bien été enregistrée.");
+                alert.showAndWait();
+            }
+
+            populateLocText();
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -327,6 +441,7 @@ public class Controller {
     @FXML
     public void refresh(MouseEvent mouseEvent) {
 
+        populateLocText();
         //CB CLIENTS
 
         try{
@@ -457,6 +572,25 @@ public class Controller {
             connection.close();
         }
         catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void populateLocText() {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/skiloc", "root", "toor")) {
+            txt_locations.setText("\n");
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM locations");
+            while (result.next()) {
+                String id = result.getString(1);
+                if (id.isEmpty()) {
+                    id = "0";
+                }
+                String loc = id + "  |" + result.getString(2) + "  |" + result.getString(3) + "  |" + result.getString(4) + "  |" + result.getString(5) + "  \n";
+                txt_locations.appendText(loc);
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

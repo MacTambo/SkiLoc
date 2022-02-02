@@ -57,7 +57,14 @@
             <Insets />
          </opaqueInsets>
       </Pane>
-      <Pane layoutX="423.0" layoutY="69.0" opacity="0.79" prefHeight="240.0" prefWidth="652.0" style="-fx-background-color: #ffffff; -fx-border-radius: 100px;" />
+      <Pane layoutX="423.0" layoutY="69.0" opacity="0.79" prefHeight="240.0" prefWidth="652.0" style="-fx-background-color: #ffffff; -fx-border-radius: 100px;">
+         <children>
+            <Text fx:id="date_is_null" fill="RED" layoutX="296.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-opacity: 0%;" text="Les dates rentrées ne correspondent pas !" wrappingWidth="310.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+         </children></Pane>
       <Pane layoutX="426.0" layoutY="334.0" opacity="0.79" prefHeight="107.0" prefWidth="226.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10em;">
          <children>
             <Text fill="#5082ab" layoutX="9.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enregistrer un retour" wrappingWidth="174.0">
@@ -75,7 +82,7 @@
             <Font name="Comic Sans MS Bold" size="31.0" />
          </font>
          <effect>
-            <DropShadow height="47.14" radius="75.035" width="255.0">
+            <DropShadow height="67.9" radius="18.6725" width="8.79">
                <color>
                   <Color red="0.8947368264198303" green="0.8947368264198303" blue="0.8947368264198303" />
                </color>
@@ -118,7 +125,7 @@
       <Button fx:id="btn_confirm_loc" layoutX="430.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#saveLoc" text="Confirmer la location" />
       <TextArea fx:id="txt_locations" editable="false" layoutX="14.0" layoutY="396.0" prefHeight="341.0" prefWidth="374.0">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font></TextArea>
       <Button layoutX="1100.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#refresh" style="-fx-background-color: #3fda46;" text="Actualiser" textFill="WHITE">
          <effect>
@@ -132,9 +139,9 @@
          </font>
       </Text>
       <SVGPath content="&#10;" layoutX="322.0" layoutY="214.0" />
-      <Text fill="#009dff" layoutX="996.0" layoutY="750.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Design BazMaster 2k22 (c)">
+      <Text layoutX="940.0" layoutY="752.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Design BazMaster 2k22 (c)">
          <font>
-            <Font name="French Script MT" size="20.0" />
+            <Font name="Vivaldi Italic" size="23.0" />
          </font>
       </Text>
    </children>

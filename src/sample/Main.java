@@ -17,7 +17,7 @@ public class Main extends Application {
         connection.connect();
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("SkiLoc");
-        primaryStage.setMaximized(true);
+        primaryStage.setMaximized(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
