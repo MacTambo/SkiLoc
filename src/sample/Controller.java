@@ -129,7 +129,31 @@ public class Controller {
 
     @FXML
     void returnArticle(MouseEvent event) {
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
 
+            String selectedLocation = cb_location.getSelectionModel().getSelectedItem().toString();
+            String selectedArticle = cb_article.getSelectionModel().getSelectedItem().toString();
+
+            System.out.println("Enregistrement Retour ...");
+
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM `locations` WHERE `locations`.`id` = ? AND WHERE `locations`.`modele` = ?");
+            pstmt.setString(1,selectedLocation);
+            pstmt.setString(2,selectedArticle);
+            pstmt.executeUpdate();
+            System.out.println("Retour effectué !");
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Confirmation Retour");
+            alert.setHeaderText("Le retour à bien été effectué.");
+            alert.showAndWait();
+
+            connection.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -239,18 +263,68 @@ public class Controller {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT id FROM locations");
 
             String selectedClient = cb_client.getSelectionModel().getSelectedItem().toString();
+
             String selectedMateriel1 = cb_materiel1.getSelectionModel().getSelectedItem().toString();
             String selectedDebut1 = dp_debut1.getValue().toString();
             String selectedRetour1 = dp_retour1.getValue().toString();
 
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO locations (dateDebut, dateFin, nom, modele) VALUES (?,?,?,?)");
-            pstmt.setString(1,selectedDebut1);
-            pstmt.setString(2,selectedRetour1);
-            pstmt.setString(3,selectedClient);
-            pstmt.setString(4,selectedMateriel1);
+            String selectedMateriel2 = cb_materiel2.getSelectionModel().getSelectedItem().toString();
+            String selectedDebut2 = dp_debut2.getValue().toString();
+            String selectedRetour2 = dp_retour2.getValue().toString();
+
+            String selectedMateriel3 = cb_materiel3.getSelectionModel().getSelectedItem().toString();
+            String selectedDebut3 = dp_debut3.getValue().toString();
+            String selectedRetour3 = dp_retour3.getValue().toString();
+
+            System.out.println("Enregistrement location ...");
+
+            int id = 0;
+            while (result.next()) {
+                id = result.getInt("id");
+            }
+            id++;
+
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
+            pstmt.setInt(1,id);
+            pstmt.setString(2,selectedDebut1);
+            pstmt.setString(3,selectedRetour1);
+            pstmt.setString(4,selectedClient);
+            pstmt.setString(5,selectedMateriel1);
             pstmt.executeUpdate();
+            System.out.println("Matériel 1 enregistré");
+
+            int id2 = id+1;
+
+            PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
+            pstmt2.setInt(1,id2);
+            pstmt2.setString(2,selectedDebut2);
+            pstmt2.setString(3,selectedRetour2);
+            pstmt2.setString(4,selectedClient);
+            pstmt2.setString(5,selectedMateriel2);
+            pstmt2.executeUpdate();
+            System.out.println("Matériel 2 enregistré");
+
+            int id3 = id2+1;
+
+            PreparedStatement pstmt3 = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
+            pstmt3.setInt(1,id3);
+            pstmt3.setString(2,selectedDebut3);
+            pstmt3.setString(3,selectedRetour3);
+            pstmt3.setString(4,selectedClient);
+            pstmt3.setString(5,selectedMateriel3);
+            pstmt3.executeUpdate();
+            System.out.println("Matériel 3 enregistré");
+
+            System.out.println("Location enregistrée !");
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Confirmation Location");
+            alert.setHeaderText("La location à bien été enregistrée.");
+            alert.showAndWait();
 
             connection.close();
         }
@@ -405,7 +479,7 @@ public class Controller {
             ObservableList data = FXCollections.observableArrayList();
 
             while (rs.next()){
-                data.add(new String(rs.getString(5)));
+                data.add(new String(rs.getString(1)));
             }
             cb_facture.setItems(data);
             connection.close();
