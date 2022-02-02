@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -7,14 +8,68 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="774.0" prefWidth="1194.0" style="-fx-background-image: url('https://th.bing.com/th/id/OIP.CnczI4xOIUFJvMjdYOCrqQHaE8?pid=ImgDet&amp;rs=1'); -fx-background-repeat: no-repeat; -fx-background-size: 100%; -fx-border-color: #75a6bc; -fx-border-radius: 3em; -fx-border-width: 3px;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="572.0" text="Bienvenue dans l'interface de gestion SkiLoc" textFill="#5082ab">
+      <Pane layoutX="8.0" layoutY="364.0" opacity="0.79" prefHeight="381.0" prefWidth="387.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10em;">
+         <children>
+            <Text fill="#5082ab" layoutX="82.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations en cours" wrappingWidth="239.0">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane layoutX="426.0" layoutY="474.0" opacity="0.79" prefHeight="232.0" prefWidth="742.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10em;">
+         <children>
+            <Text fill="#5082ab" layoutX="14.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Impressions" wrappingWidth="174.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="370.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rapport date à date :" />
+            <Text layoutX="340.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du :" />
+            <DatePicker fx:id="dp_rapport1" layoutX="372.0" layoutY="64.0" />
+            <Text layoutX="341.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Au :" />
+            <DatePicker fx:id="dp_rapport2" layoutX="372.0" layoutY="104.0" />
+            <Button fx:id="btn_rapport" layoutX="393.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#printRapport" text="Imprimer" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="148.0" layoutX="566.0" layoutY="42.0" opacity="0.27" stroke="BLACK" strokeType="INSIDE" width="149.0" />
+            <Text layoutX="599.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bilan annuel :" />
+            <Text layoutX="588.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Imprime un bilan sur l'année." wrappingWidth="127.0" />
+            <Button fx:id="btn_bilan" layoutX="624.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#printBilan" text="Bilan" />
+            <ComboBox fx:id="cb_facture" layoutX="188.0" layoutY="75.0" prefHeight="25.0" prefWidth="118.0" />
+            <Text layoutX="190.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facture :" />
+            <Button fx:id="btn_facture" layoutX="188.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#printFacture" text="Imprimer" />
+            <Text layoutX="20.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fiche client :" />
+            <ComboBox fx:id="cb_fiche" layoutX="20.0" layoutY="75.0" prefHeight="25.0" prefWidth="118.0" />
+            <Button fx:id="btn_fiche_cli" layoutX="20.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#printFiche" text="Imprimer" />
+         </children>
+      </Pane>
+      <Pane layoutX="10.0" layoutY="69.0" opacity="0.79" prefHeight="267.0" prefWidth="310.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10em;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Pane>
+      <Pane layoutX="423.0" layoutY="69.0" opacity="0.79" prefHeight="240.0" prefWidth="652.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10em;" />
+      <Pane layoutX="426.0" layoutY="334.0" opacity="0.79" prefHeight="107.0" prefWidth="226.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10em;">
+         <children>
+            <Text fill="#5082ab" layoutX="9.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enregistrer un retour" wrappingWidth="174.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="cb_location" layoutX="66.0" layoutY="34.0" prefWidth="150.0" />
+            <Text layoutX="5.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location :" />
+            <Button fx:id="btn_retour" layoutX="66.0" layoutY="68.0" mnemonicParsing="false" onMouseClicked="#returnArticle" text="Article retourné" />
+         </children>
+      </Pane>
+      <Label layoutX="66.0" layoutY="14.0" prefHeight="38.0" prefWidth="1046.0" style="-fx-background-color: #ffffff;" text="Bienvenue dans l'interface de gestion SkiLoc" textAlignment="JUSTIFY" textFill="#75a6bc">
          <font>
-            <Font name="Arial" size="21.0" />
+            <Font name="Candara Bold" size="31.0" />
          </font>
       </Label>
       <TextField fx:id="txt_nom" layoutX="95.0" layoutY="100.0" />
@@ -22,7 +77,7 @@
       <TextField fx:id="txt_adresse" layoutX="95.0" layoutY="169.0" prefHeight="44.0" prefWidth="218.0" />
       <TextField fx:id="txt_codep" layoutX="95.0" layoutY="221.0" />
       <TextField fx:id="txt_ville" layoutX="95.0" layoutY="256.0" />
-      <Text fill="#5082ab" layoutX="14.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveau Client" wrappingWidth="109.13671875">
+      <Text fill="#5082ab" layoutX="14.0" layoutY="86.0" stroke="#a66363" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveau Client" wrappingWidth="109.13671875">
          <font>
             <Font size="15.0" />
          </font>
@@ -51,41 +106,17 @@
       <DatePicker fx:id="dp_retour3" layoutX="878.0" layoutY="221.0" promptText="Date retour" />
       <Button fx:id="btn_save_client" layoutX="95.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#saveClient" text="Enregistrer le client" />
       <Button fx:id="btn_confirm_loc" layoutX="430.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#saveLoc" text="Confirmer la location" />
-      <Text fill="#5082ab" layoutX="14.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Locations en cours" wrappingWidth="174.0">
+      <TextArea fx:id="txt_locations" editable="false" layoutX="14.0" layoutY="396.0" prefHeight="341.0" prefWidth="374.0">
          <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <TextArea fx:id="txt_locations" layoutX="14.0" layoutY="396.0" prefHeight="365.0" prefWidth="374.0" />
-      <Text fill="#5082ab" layoutX="430.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enregistrer un retour" wrappingWidth="174.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <ComboBox fx:id="cb_location" layoutX="487.0" layoutY="417.0" prefWidth="150.0" />
-      <Text layoutX="429.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location :" />
-      <Button fx:id="btn_retour" layoutX="488.0" layoutY="465.0" mnemonicParsing="false" onMouseClicked="#returnArticle" text="Article retourné" />
-      <Text fill="#5082ab" layoutX="423.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Impressions" wrappingWidth="174.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <Text layoutX="423.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fiche client :" />
-      <Text layoutX="614.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Facture :" />
-      <Text layoutX="781.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rapport date à date :" />
-      <Text layoutX="1029.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bilan annuel :" />
-      <ComboBox fx:id="cb_fiche" layoutX="421.0" layoutY="590.0" prefWidth="150.0" />
-      <ComboBox fx:id="cb_facture" layoutX="614.0" layoutY="590.0" prefWidth="150.0" />
-      <DatePicker fx:id="dp_rapport1" layoutX="781.0" layoutY="612.0" />
-      <DatePicker fx:id="dp_rapport2" layoutX="781.0" layoutY="665.0" />
-      <Button fx:id="btn_fiche_cli" layoutX="422.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#printFiche" text="Imprimer" />
-      <Button fx:id="btn_facture" layoutX="614.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#printFacture" text="Imprimer" />
-      <Button fx:id="btn_rapport" layoutX="781.0" layoutY="706.0" mnemonicParsing="false" onMouseClicked="#printRapport" text="Imprimer" />
-      <Button fx:id="btn_bilan" layoutX="1029.0" layoutY="652.0" mnemonicParsing="false" onMouseClicked="#printBilan" text="Bilan" />
-      <Text layoutX="1029.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Imprime un bilan sur une année." wrappingWidth="127.0" />
-      <Text layoutX="782.0" layoutY="603.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du :" />
-      <Text layoutX="782.0" layoutY="657.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Au :" />
-      <Button layoutX="1112.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Actualiser" textFill="#00ae09" underline="true" />
+            <Font size="18.0" />
+         </font></TextArea>
+      <Button layoutX="1041.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Actualiser" textFill="#00ae09" underline="true" />
       <Text fill="#329718" layoutX="221.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#838383" height="20.0" layoutX="16.0" layoutY="398.0" opacity="0.62" stroke="#5b5b5b" strokeLineCap="ROUND" strokeType="INSIDE" width="370.0" />
+      <Text fill="WHITE" layoutX="31.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID      Date début         Date de fin            Nom du client     Modèle" wrappingWidth="372.8033638000488">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

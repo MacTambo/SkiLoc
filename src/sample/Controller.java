@@ -98,6 +98,28 @@ public class Controller {
     @FXML
     private TextArea txt_locations;
 
+    public void populateLocText() {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/skiloc", "root", "toor")) {
+            txt_locations.setText("\n");
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM locations");
+
+
+            while (result.next()) {
+                String id = result.getString(1);
+                if (id.isEmpty()) {
+                    id = "0";
+                }
+                String loc = id +"  "+ result.getString(2) +"  "+ result.getString(3) +"  "+ result.getString(4) +"  "+ result.getString(5)+"  \n";
+                txt_locations.appendText(loc);
+                System.out.println(loc);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private TextField txt_nom;
 
@@ -129,16 +151,16 @@ public class Controller {
 
     @FXML
     void returnArticle(MouseEvent event) {
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
 
             String selectedLocation = cb_location.getSelectionModel().getSelectedItem().toString();
 
             System.out.println("Enregistrement Retour ...");
 
             PreparedStatement pstmt = connection.prepareStatement("DELETE FROM locations WHERE id = ?");
-            pstmt.setString(1,selectedLocation);
+            pstmt.setString(1, selectedLocation);
             pstmt.executeUpdate();
             System.out.println("Retour effectué !");
 
@@ -148,8 +170,8 @@ public class Controller {
             alert.showAndWait();
 
             connection.close();
-        }
-        catch (Exception e){
+            populateLocText();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -258,9 +280,9 @@ public class Controller {
 
     @FXML
     void saveLoc(MouseEvent event) {
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT id FROM locations");
 
@@ -287,33 +309,33 @@ public class Controller {
             id++;
 
             PreparedStatement pstmt = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
-            pstmt.setInt(1,id);
-            pstmt.setString(2,selectedDebut1);
-            pstmt.setString(3,selectedRetour1);
-            pstmt.setString(4,selectedClient);
-            pstmt.setString(5,selectedMateriel1);
+            pstmt.setInt(1, id);
+            pstmt.setString(2, selectedDebut1);
+            pstmt.setString(3, selectedRetour1);
+            pstmt.setString(4, selectedClient);
+            pstmt.setString(5, selectedMateriel1);
             pstmt.executeUpdate();
             System.out.println("Matériel 1 enregistré");
 
-            int id2 = id+1;
+            int id2 = id + 1;
 
             PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
-            pstmt2.setInt(1,id2);
-            pstmt2.setString(2,selectedDebut2);
-            pstmt2.setString(3,selectedRetour2);
-            pstmt2.setString(4,selectedClient);
-            pstmt2.setString(5,selectedMateriel2);
+            pstmt2.setInt(1, id2);
+            pstmt2.setString(2, selectedDebut2);
+            pstmt2.setString(3, selectedRetour2);
+            pstmt2.setString(4, selectedClient);
+            pstmt2.setString(5, selectedMateriel2);
             pstmt2.executeUpdate();
             System.out.println("Matériel 2 enregistré");
 
-            int id3 = id2+1;
+            int id3 = id2 + 1;
 
             PreparedStatement pstmt3 = connection.prepareStatement("INSERT INTO locations (id, dateDebut, dateFin, nom, modele) VALUES (?,?,?,?,?)");
-            pstmt3.setInt(1,id3);
-            pstmt3.setString(2,selectedDebut3);
-            pstmt3.setString(3,selectedRetour3);
-            pstmt3.setString(4,selectedClient);
-            pstmt3.setString(5,selectedMateriel3);
+            pstmt3.setInt(1, id3);
+            pstmt3.setString(2, selectedDebut3);
+            pstmt3.setString(3, selectedRetour3);
+            pstmt3.setString(4, selectedClient);
+            pstmt3.setString(5, selectedMateriel3);
             pstmt3.executeUpdate();
             System.out.println("Matériel 3 enregistré");
 
@@ -324,9 +346,9 @@ public class Controller {
             alert.setHeaderText("La location à bien été enregistrée.");
             alert.showAndWait();
 
+            populateLocText();
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -334,136 +356,131 @@ public class Controller {
     @FXML
     public void refresh(MouseEvent mouseEvent) {
 
+
+        populateLocText();
         //CB CLIENTS
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
 
             ResultSet rs = connection.createStatement().executeQuery("select * from clients");
             ObservableList data = FXCollections.observableArrayList();
 
-            while (rs.next()){
+            while (rs.next()) {
                 data.add(new String(rs.getString(2)));
             }
             cb_client.setItems(data);
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         //CB MATERIEL 1
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
 
             ResultSet rs = connection.createStatement().executeQuery("select * from skis");
             ObservableList data = FXCollections.observableArrayList();
 
-            while (rs.next()){
+            while (rs.next()) {
                 data.add(new String(rs.getString(2)));
             }
             cb_materiel1.setItems(data);
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         //CB MATERIEL 2
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
 
             ResultSet rs = connection.createStatement().executeQuery("select * from skis");
             ObservableList data = FXCollections.observableArrayList();
 
-            while (rs.next()){
+            while (rs.next()) {
                 data.add(new String(rs.getString(2)));
             }
             cb_materiel2.setItems(data);
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         //CB MATERIEL 3
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
 
             ResultSet rs = connection.createStatement().executeQuery("select * from skis");
             ObservableList data = FXCollections.observableArrayList();
 
-            while (rs.next()){
+            while (rs.next()) {
                 data.add(new String(rs.getString(2)));
             }
             cb_materiel3.setItems(data);
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         //CB LOCATION
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
 
             ResultSet rs = connection.createStatement().executeQuery("select * from locations");
             ObservableList data = FXCollections.observableArrayList();
 
-            while (rs.next()){
+            while (rs.next()) {
                 data.add(new String(rs.getString(1)));
             }
             cb_location.setItems(data);
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         //CB FICHE
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
 
             ResultSet rs = connection.createStatement().executeQuery("select * from clients");
             ObservableList data = FXCollections.observableArrayList();
 
-            while (rs.next()){
+            while (rs.next()) {
                 data.add(new String(rs.getString(2)));
             }
             cb_fiche.setItems(data);
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         //CB FACTURE
 
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc", "root", "toor");
 
             ResultSet rs = connection.createStatement().executeQuery("select * from locations");
             ObservableList data = FXCollections.observableArrayList();
 
-            while (rs.next()){
+            while (rs.next()) {
                 data.add(new String(rs.getString(1)));
             }
             cb_facture.setItems(data);
             connection.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
