@@ -87,5 +87,6 @@
       <Text layoutX="1029.0" layoutY="620.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Imprime un bilan sur une année." wrappingWidth="127.0" />
       <Text layoutX="782.0" layoutY="603.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du :" />
       <Text layoutX="782.0" layoutY="657.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Au :" />
+      <Button layoutX="1112.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#refresh" text="Actualiser" textFill="#00ae09" underline="true" />
    </children>
 </AnchorPane>
