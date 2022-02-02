@@ -134,13 +134,11 @@ public class Controller {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
 
             String selectedLocation = cb_location.getSelectionModel().getSelectedItem().toString();
-            String selectedArticle = cb_article.getSelectionModel().getSelectedItem().toString();
 
             System.out.println("Enregistrement Retour ...");
 
-            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM `locations` WHERE `locations`.`id` = ? AND WHERE `locations`.`modele` = ?");
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM locations WHERE id = ?");
             pstmt.setString(1,selectedLocation);
-            pstmt.setString(2,selectedArticle);
             pstmt.executeUpdate();
             System.out.println("Retour effectué !");
 
@@ -425,25 +423,6 @@ public class Controller {
                 data.add(new String(rs.getString(1)));
             }
             cb_location.setItems(data);
-            connection.close();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        //CB ARTICLE
-
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/skiloc","root","toor");
-
-            ResultSet rs = connection.createStatement().executeQuery("select * from locations");
-            ObservableList data = FXCollections.observableArrayList();
-
-            while (rs.next()){
-                data.add(new String(rs.getString(5)));
-            }
-            cb_article.setItems(data);
             connection.close();
         }
         catch (Exception e){
